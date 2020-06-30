@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -6,7 +7,9 @@ namespace exercise_1 {
 
 class Team {
  public:
-  Team(const std::vector<std::string>& names) : names_(names) {}
+  Team(const std::initializer_list<std::string>& names) : names_(names) {
+    assert(names.size() > 1 || (names.size() == 1 && !names.begin()->empty()));
+  }
   Team() = delete;
 
   void Insert(const std::initializer_list<double>& values) {
@@ -47,7 +50,6 @@ TEST(Test, Test1) {
   Team teamA({"Jim", "Gianna", "Andrea"});
   teamA.Insert({42, 7, 5.5});
   teamA.Insert({42.7});
-
   std::cout << teamA << std::endl;
 
   // Team teamB();  // WRONG: This is a function declaration!
@@ -58,6 +60,9 @@ TEST(Test, Test1) {
 
   // Team teamD{};  // WRONG: Passing no value deleted!
   // std::cout << teamD << std::endl;
+
+  // Team teamE{{}};  // WRONG: Assertion fails
+  // std::cout << teamE << std::endl;
 }
 
 }  // namespace
