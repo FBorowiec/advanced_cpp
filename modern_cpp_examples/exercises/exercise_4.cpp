@@ -1,16 +1,32 @@
 #include <algorithm>
+#include <array>
 #include <cassert>
 #include <iostream>
+#include <map>
+#include <set>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace exercise_4 {
 
-template <typename T>
-void printCollection(const std::vector<T>& coll) {
-  for (unsigned int i{0}; i<coll.size(); ++i) {
-    if (i)
+/**
+ * Using std::begin and std::end allows iterating over:
+ * std::array, std::vector, std::map, std::unordered_map, std::map,
+ * std::unordered_set, std::set
+ */
+template <template <typename> typename Container, typename Type>
+void PrintCollection(const Container<Type>& coll) {
+  std::cout << "Coll: " << std::endl;
+
+  if (std::begin(coll) == std::end(coll)) {
+    std::cout << " empty" << std::endl;
+    return;
   }
+
+  std::for_each(coll.begin(), coll.end(),
+                [&](Type elem) { std::cout << " " << elem << std::endl; });
 }
 
 template <typename T>
@@ -76,5 +92,49 @@ TEST(TeamTest, CreationOfTeams) {
   teamB.Insert2("another interesting values");
   std::cout << teamB << std::endl;
 }
+
+TEST(PrintCollectionTest, PrintingIntVectorContainer) {
+  std::cout << "---vector<int>---" << std::endl;
+  PrintCollection<std::vector, int>({1, 2, 3, 4, 5});
+  PrintCollection<std::vector, int>({1, 2, 3, 4});
+  PrintCollection<std::vector, int>({1, 2, 3});
+  PrintCollection<std::vector, int>({1, 2});
+  PrintCollection<std::vector, int>({1});
+  PrintCollection<std::vector, int>({});
+}
+
+TEST(PrintCollectionTest, PrintingStringVectorContainer) {
+  std::cout << "---vector<string>---" << std::endl;
+  PrintCollection<std::vector, std::string>({"1", "2", "3", "4", "5"});
+}
+
+TEST(PrintCollectionTest, PrintingStringSetContainer) {
+  std::cout << "---set<string>---" << std::endl;
+  PrintCollection<std::set, std::string>({"1", "2", "3", "4", "5"});
+}
+
+TEST(PrintCollectionTest, PrintingDoubleUnorderedsetContainer) {
+  std::cout << "---unordered_set<double>---" << std::endl;
+  PrintCollection<std::unordered_set, double>({1.0, 2.0, 3.0, 4.0, 5.0});
+}
+
+// TEST(PrintCollectionTest, PrintingFloatArrayContainer) {
+// std::cout << "---unordered_set<double>---" << std::endl;
+// std::array<float, 5> arr{1.0f, 2.0f, 3.0f, 4.0f, 5.0f};
+// PrintCollection(arr);
+// PrintCollection<std::array, float, 5>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  //
+// doesn't work PrintCollection<float[5]>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  //
+// doesn't work PrintCollection<std::array<float,
+// 5>>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
+// PrintCollection<std::array<float, 5>, float>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});
+// // doesn't work PrintCollection<std::array,
+// float>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
+// }
+
+// TEST(PrintCollectionTest, PrintingConstCharPtrUnorderedMapContainer) {
+//   std::cout << "---unordered_set<double>---" << std::endl;
+//   PrintCollection<std::unordered_map, const char*>({'1', '2', '3', '4',
+//   '5'});
+// }
 
 }  // namespace
