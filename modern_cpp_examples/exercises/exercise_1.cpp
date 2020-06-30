@@ -46,7 +46,7 @@ namespace {
 
 using namespace exercise_1;
 
-TEST(Test, Test1) {
+TEST(TeamTest, CreationOfTeams) {
   Team teamA({"Jim", "Gianna", "Andrea"});
   teamA.Insert({42, 7, 5.5});
   teamA.Insert({42.7});
