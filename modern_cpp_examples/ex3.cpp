@@ -2,36 +2,34 @@
 // double values and multiple names
 // - Use std::array<> instead of std::vector<>
 // - Put multiple Values objects in a unordered_set
-#include <vector>
-#include <array>
-#include <string>
-#include <iostream>
-#include <cassert>
-#include <unordered_set>
 #include <algorithm>
+#include <array>
+#include <cassert>
+#include <iostream>
+#include <string>
+#include <unordered_set>
+#include <vector>
 
 namespace ex3 {
 
-template<int MaxSize>
+template <int MaxSize>
 class Values {
  private:
   std::string name;
   std::array<double, MaxSize> ages;
   std::size_t agesSize;
+
  public:
-  Values(std::string inputName,
-         std::initializer_list<double> inputAges = {})
-   : name{inputName}, ages{}, agesSize{inputAges.size()} {
-      assert(inputAges.size() <= MaxSize);
-      std::size_t idx = 0;
-      for (const auto& age : inputAges) {
-        ages[idx] = age;
-        ++idx;
-      }
+  Values(std::string inputName, std::initializer_list<double> inputAges = {})
+      : name{inputName}, ages{}, agesSize{inputAges.size()} {
+    assert(inputAges.size() <= MaxSize);
+    std::size_t idx = 0;
+    for (const auto& age : inputAges) {
+      ages[idx] = age;
+      ++idx;
+    }
   }
-  Values(std::initializer_list<double> inputAges)
-   : Values{{}, inputAges} {
-  }
+  Values(std::initializer_list<double> inputAges) : Values{{}, inputAges} {}
 
   void print() const {
     std::cout << "\nValues of name '" << name << "':\n";
@@ -40,12 +38,9 @@ class Values {
     }
   }
 
-  std::string getName() const {
-    return name;
-  }
+  std::string getName() const { return name; }
 
-  friend bool operator== (const Values<MaxSize>& v1,
-                          const Values<MaxSize>& v2) {
+  friend bool operator==(const Values<MaxSize>& v1, const Values<MaxSize>& v2) {
     if (v1.name != v2.name) {
       return false;
     }
@@ -56,22 +51,21 @@ class Values {
   }
 };
 
-template<int MaxSize>
+template <int MaxSize>
 struct ValuesHash {
-  std::size_t operator() (const Values<MaxSize>& val) const {
+  std::size_t operator()(const Values<MaxSize>& val) const {
     // return the hash value according to the name of the Values object:
     std::hash<std::string> hashFunc;
     return hashFunc(val.getName());
   }
 };
 
-void testValuesInUnorderedSet()
-{
+void testValuesInUnorderedSet() {
   std::unordered_set<Values<5>, ValuesHash<5>> coll{
-    Values<5>{"Jim", {4.2, 3.3, 7.7, 18}},
-    Values<5>{"Tim", {64, 64, 65, 66, 67}},
-    Values<5>{"Tom", {65, 66, 67}},
-    Values<5>{"Alessandro"},
+      Values<5>{"Jim", {4.2, 3.3, 7.7, 18}},
+      Values<5>{"Tim", {64, 64, 65, 66, 67}},
+      Values<5>{"Tom", {65, 66, 67}},
+      Values<5>{"Alessandro"},
   };
 
   std::cout << "================= Values objects: ============\n";
@@ -81,17 +75,14 @@ void testValuesInUnorderedSet()
   }
   // print out using count_if() how many names of Values objects
   // have 0-3 characters:
-  int num = std::count_if(coll.begin(), coll.end(),
-                          [] (const auto& elem) {
-                            return elem.getName().size() <= 3;
-                          });
+  int num = std::count_if(coll.begin(), coll.end(), [](const auto& elem) {
+    return elem.getName().size() <= 3;
+  });
   std::cout << "elems with short names: " << num << '\n';
   std::cout << "==============================================\n";
 }
 
-
-void testValues()
-{
+void testValues() {
   Values<5> v1{"Jim", {4.2, 3.3, 7.7, 18}};
   v1.print();
   Values<2> v2{"Jim"};

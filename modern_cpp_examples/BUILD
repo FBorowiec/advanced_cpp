@@ -38,13 +38,22 @@ cc_test(
 
 cc_library(
   name = "map",
-  srcs = ["map/customer.cpp",],
   hdrs = glob(["map/*.hpp"]),
 )
 
 cc_test(
   name = "map_test",
   srcs = ["map/map.cpp"],
+  deps = [
+    ":map",
+    "@googletest//:gtest",
+    "@googletest//:gtest_main",
+  ]
+)
+
+cc_test(
+  name = "customer_test",
+  srcs = ["map/customer.cpp"],
   deps = [
     ":map",
     "@googletest//:gtest",
