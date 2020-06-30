@@ -93,6 +93,12 @@ void testPrint() {
   printColl("hey");
 }
 
+namespace customer {
+
+//------------------------------------------------------------------------------
+// main
+//------------------------------------------------------------------------------
+
 /********************************************
  * main()
  ********************************************/
@@ -220,4 +226,22 @@ int main(int argc, const char** argv) {
       }
     }
   }
+
+  return 0;
 }
+
+}  // namespace customer
+
+// TEST---------------------------------------------------------------------------------------------------------------|
+#include "gtest/gtest.h"
+
+namespace {
+
+using namespace customer;
+
+int my_argc;
+const char** my_argv;
+
+TEST(Test, Test1) { main(my_argc, my_argv); }
+
+}  // namespace

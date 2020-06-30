@@ -36,6 +36,15 @@ cc_test(
   ]
 )
 
+cc_test(
+  name = "specexe",
+  srcs = ["specexe.cpp"],
+  deps = [
+    "@googletest//:gtest",
+    "@googletest//:gtest_main",
+  ]
+)
+
 cc_library(
   name = "map",
   hdrs = glob(["map/*.hpp"]),
@@ -56,15 +65,6 @@ cc_test(
   srcs = ["map/customer.cpp"],
   deps = [
     ":map",
-    "@googletest//:gtest",
-    "@googletest//:gtest_main",
-  ]
-)
-
-cc_test(
-  name = "specexe",
-  srcs = ["specexe.cpp"],
-  deps = [
     "@googletest//:gtest",
     "@googletest//:gtest_main",
   ]

@@ -88,21 +88,11 @@ void loopPassingSharedPtrByRawPtr(int numThreads, size_t threadNo,
   result = Object::threadLocalCounter[threadNo];
 }
 
-}  // namespace sharedptrloop
-
-// TEST---------------------------------------------------------------------------------------------------------------|
-#include "gtest/gtest.h"
-
-namespace {
-
-using namespace sharedptrloop;
-
 //------------------------------------------------------------------------------
 // main
 //------------------------------------------------------------------------------
 
 int main(int argc, char* argv[]) {
-  ::testing::InitGoogleTest(&argc, argv);
   if (argc < 3 ||
       (argc == 3 && *argv[2] != 'v' && *argv[2] != 'r' && *argv[2] != 'p')) {
     std::cout << "Usage: " << argv[0]
@@ -193,9 +183,17 @@ int main(int argc, char* argv[]) {
   }
   std::cout << diff.count() << " ms\n";
 
-  return RUN_ALL_TESTS();
-  ;
+  return 0;
 }
+
+}  // namespace sharedptrloop
+
+// TEST---------------------------------------------------------------------------------------------------------------|
+#include "gtest/gtest.h"
+
+namespace {
+
+using namespace sharedptrloop;
 
 int my_argc;
 char** my_argv;
