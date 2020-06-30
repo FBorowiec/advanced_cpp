@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Pdf
+*.pdf
+
+# Bazel
+bazel-*
+
+# VS Code
+.vscode

@@ -1,0 +1,24 @@
+#######################
+# BUILD CONFIGURATION #
+#######################
+
+# Build using c++17
+build --cxxopt='-std=c++17'
+build --cxxopt='-lstdc++fs'
+
+# Stick with the bazel default toolchain for host tool builds
+build --host_crosstool_top=//external:cc_toolchain
+
+# Compilation flags go here
+build --cxxopt=-Wall
+build --cxxopt=-Werror
+build --cxxopt=-Wextra
+build --cxxopt=-Wpedantic
+build --cxxopt=-Wshadow
+build --cxxopt=-Wold-style-cast
+build --cxxopt=-Woverloaded-virtual
+build --cxxopt=-Wfloat-equal
+#build --cxxopt=-Wconversion
+#build --cxxopt=-Wsign-conversion
+build --cxxopt=-Wno-error=deprecated-declarations
+build --cxxopt=-Wformat-security
