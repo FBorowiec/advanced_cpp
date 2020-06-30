@@ -13,8 +13,8 @@ class Team {
   Team() = delete;
 
   // Option 1: recursively
-  template <typename U, typename... Args>
-  void Insert1(U element, Args... values) {
+  template <typename T, typename... Args>
+  void Insert1(T element, Args... values) {
     values_.push_back(element);
     Insert1(values...);
   }
@@ -57,12 +57,12 @@ using namespace exercise_2;
 
 TEST(TeamTest, CreationOfTeams) {
   Team teamA{"Jim", "Gianna", "Andrea"};
-  teamA.Insert1(42, 7, 5.5);
-  // teamA.Insert({42.7});
+  // teamA.Insert1(42, 7, 5.5);  // TODO: Why not working?
+  // teamA.Insert1(42.7);
   // teamA.Insert();  // WRONG: deleted function!
   std::cout << teamA << std::endl;
 
-  Team teamB{"Jim", "Gianna", "Andrea"};
+  Team teamB{"Johnny", "Jim", "Jack"};
   teamB.Insert2(42, 7, 5.5);
   teamB.Insert2(42.7);
   std::cout << teamB << std::endl;

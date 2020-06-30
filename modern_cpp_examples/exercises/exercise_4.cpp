@@ -1,9 +1,17 @@
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <string>
 #include <vector>
 
-namespace exercise_3 {
+namespace exercise_4 {
+
+template <typename T>
+void printCollection(const std::vector<T>& coll) {
+  for (unsigned int i{0}; i<coll.size(); ++i) {
+    if (i)
+  }
+}
 
 template <typename T>
 class Team {
@@ -47,14 +55,14 @@ class Team {
   std::vector<T> values_;
 };
 
-}  // namespace exercise_3
+}  // namespace exercise_4
 
 // TEST---------------------------------------------------------------------------------------------------------------|
 #include "gtest/gtest.h"
 
 namespace {
 
-using namespace exercise_3;
+using namespace exercise_4;
 
 TEST(TeamTest, CreationOfTeams) {
   Team<double> teamA{"Jim", "Gianna", "Andrea"};
