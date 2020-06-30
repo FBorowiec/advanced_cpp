@@ -5,6 +5,7 @@
 
 namespace exercise_2 {
 
+template <typename T>
 class Team {
  public:
   Team(const std::initializer_list<std::string>& names) : names_(names) {
@@ -22,7 +23,7 @@ class Team {
   // Option 2: no compile-time recursion
   template <typename... Args>
   void Insert2(Args... values) {
-    values_.insert(values_.end(), {static_cast<double>(values)...});
+    values_.insert(values_.end(), {static_cast<T>(values)...});
   }
 
   void Insert1() = delete;
@@ -43,7 +44,7 @@ class Team {
 
  private:
   std::vector<std::string> names_;
-  std::vector<double> values_;
+  std::vector<T> values_;
 };
 
 }  // namespace exercise_2
@@ -56,15 +57,15 @@ namespace {
 using namespace exercise_2;
 
 TEST(TeamTest, CreationOfTeams) {
-  Team teamA{"Jim", "Gianna", "Andrea"};
+  Team<double> teamA{"Jim", "Gianna", "Andrea"};
   teamA.Insert1(42, 7, 5.5);
-  // teamA.Insert({42.7});
+  teamA.Insert1(42.7);
   // teamA.Insert();  // WRONG: deleted function!
   std::cout << teamA << std::endl;
 
-  Team teamB{"Jim", "Gianna", "Andrea"};
-  teamB.Insert2(42, 7, 5.5);
-  teamB.Insert2(42.7);
+  Team<std::string> teamB{"Jim", "Gianna", "Andrea"};
+  teamB.Insert2("42", "7", "5.5");
+  teamB.Insert2("another interesting values");
   std::cout << teamB << std::endl;
 }
 
