@@ -39,5 +39,3 @@ bazel-*
 
 # VS Code
 .vscode
-
-modern_cpp_examples/exercises
