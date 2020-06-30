@@ -1,7 +1,9 @@
 #include <algorithm>
 #include <array>
 #include <cassert>
+#include <deque>
 #include <iostream>
+#include <list>
 #include <map>
 #include <set>
 #include <string>
@@ -25,8 +27,20 @@ void PrintCollection(const Container<Type>& coll) {
     return;
   }
 
-  std::for_each(coll.begin(), coll.end(),
-                [&](Type elem) { std::cout << " " << elem << std::endl; });
+  if (std::next(coll.begin(), 1) == std::end(coll)) {
+    std::cout << " " << *(std::prev(coll.end(), 1)) << std::endl;
+    return;
+  }
+
+  std::for_each(coll.begin(), std::next(coll.begin(), 2),
+                  [&](Type elem) { std::cout << " " << elem << std::endl; });
+
+  if (coll.size() >= 3) {
+    if (coll.size() > 3) {
+      std::cout << " ..." << std::endl;
+    }
+    std::cout << " " << *(std::next(coll.begin(), coll.size()-1)) << std::endl;
+  }
 }
 
 template <typename T>
@@ -118,23 +132,36 @@ TEST(PrintCollectionTest, PrintingDoubleUnorderedsetContainer) {
   PrintCollection<std::unordered_set, double>({1.0, 2.0, 3.0, 4.0, 5.0});
 }
 
-// TEST(PrintCollectionTest, PrintingFloatArrayContainer) {
-// std::cout << "---unordered_set<double>---" << std::endl;
-// std::array<float, 5> arr{1.0f, 2.0f, 3.0f, 4.0f, 5.0f};
-// PrintCollection(arr);
-// PrintCollection<std::array, float, 5>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  //
-// doesn't work PrintCollection<float[5]>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  //
-// doesn't work PrintCollection<std::array<float,
-// 5>>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
-// PrintCollection<std::array<float, 5>, float>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});
-// // doesn't work PrintCollection<std::array,
-// float>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
-// }
+TEST(PrintCollectionTest, PrintingCharDequeContainer) {
+  std::cout << "---deque<char>---" << std::endl;
+  PrintCollection<std::deque, char>({'a', 'b', 'c', 'd', 'e'});
+}
 
-// TEST(PrintCollectionTest, PrintingConstCharPtrUnorderedMapContainer) {
-//   std::cout << "---unordered_set<double>---" << std::endl;
-//   PrintCollection<std::unordered_map, const char*>({'1', '2', '3', '4',
-//   '5'});
-// }
+TEST(PrintCollectionTest, PrintingStringInitializerListContainer) {
+  std::cout << "---initializer_list<string>---" << std::endl;
+  PrintCollection<std::initializer_list, std::string>({"abc", "def", "ghi", "jkl", "mno"});
+}
+
+TEST(PrintCollectionTest, PrintingLongListContainer) {
+  std::cout << "---list<long>---" << std::endl;
+  PrintCollection<std::list, long>({1, 2, 3, 4, 5});
+}
+
+TEST(PrintCollectionTest, PrintingUnsignedForwardListContainer) {
+  std::cout << "---multiset<unsigned>---" << std::endl;
+  PrintCollection<std::multiset, unsigned>({1, 2, 3, 4, 5});
+}
+
+TEST(PrintCollectionTest, DISABLED_PrintingFloatArrayContainer) {
+std::cout << "---array<float>---" << std::endl;
+std::array<float, 5> arr{1.0f, 2.0f, 3.0f, 4.0f, 5.0f};
+(void)arr;
+// PrintCollection(arr);
+// PrintCollection<std::array, float, 5>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
+// PrintCollection<float[5]>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
+// PrintCollection<std::array<float, 5>>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
+// PrintCollection<std::array<float, 5>, float>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f}); // doesn't work
+// PrintCollection<std::array, float>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
+}
 
 }  // namespace
