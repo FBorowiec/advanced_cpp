@@ -13,8 +13,8 @@
 
 namespace exercise_4 {
 
-template <template <typename> typename Container, typename... Args>
-void PrintCollection(const Container<Args...>& coll) {
+template <typename T>
+void PrintCollection(const T& coll) {
   std::cout << "Coll: " << std::endl;
 
   if (coll.size()  == 0) {
@@ -107,70 +107,59 @@ TEST(TeamTest, CreationOfTeams) {
 
 TEST(PrintCollectionTest, PrintingIntVectorContainer) {
   std::cout << "---vector<int>---" << std::endl;
-  PrintCollection<std::vector, int>({1, 2, 3, 4, 5});
-  PrintCollection<std::vector, int>({1, 2, 3, 4});
-  PrintCollection<std::vector, int>({1, 2, 3});
-  PrintCollection<std::vector, int>({1, 2});
-  PrintCollection<std::vector, int>({1});
-  PrintCollection<std::vector, int>({});
+  PrintCollection(std::vector<int>{1, 2, 3, 4, 5});
+  PrintCollection(std::vector<int>{1, 2, 3, 4});
+  PrintCollection(std::vector<int>{1, 2, 3});
+  PrintCollection(std::vector<int>{1, 2});
+  PrintCollection(std::vector<int>{1});
+  PrintCollection(std::vector<int>{});
 }
 
 TEST(PrintCollectionTest, PrintingStringVectorContainer) {
   std::cout << "---vector<string>---" << std::endl;
-  PrintCollection<std::vector, std::string>({"1", "2", "3", "4", "5"});
+  PrintCollection(std::vector<std::string>{"1", "2", "3", "4", "5"});
 }
 
 TEST(PrintCollectionTest, PrintingStringSetContainer) {
   std::cout << "---set<string>---" << std::endl;
-  PrintCollection<std::set, std::string>({"1", "2", "3", "4", "5"});
+  PrintCollection(std::set<std::string>{"1", "2", "3", "4", "5"});
 }
 
 TEST(PrintCollectionTest, PrintingDoubleUnorderedsetContainer) {
   std::cout << "---unordered_set<double>---" << std::endl;
-  PrintCollection<std::unordered_set, double>({1.0, 2.0, 3.0, 4.0, 5.0});
+  PrintCollection(std::unordered_set<double>{1.0, 2.0, 3.0, 4.0, 5.0});
 }
 
 TEST(PrintCollectionTest, PrintingCharDequeContainer) {
   std::cout << "---deque<char>---" << std::endl;
-  PrintCollection<std::deque, char>({'a', 'b', 'c', 'd', 'e'});
+  PrintCollection(std::deque<char>{'a', 'b', 'c', 'd', 'e'});
 }
 
 TEST(PrintCollectionTest, PrintingStringInitializerListContainer) {
   std::cout << "---initializer_list<string>---" << std::endl;
-  PrintCollection<std::initializer_list, std::string>(
-      {"abc", "def", "ghi", "jkl", "mno"});
+  PrintCollection(std::initializer_list<std::string>{"abc", "def", "ghi", "jkl", "mno"});
 }
 
 TEST(PrintCollectionTest, PrintingLongListContainer) {
   std::cout << "---list<long>---" << std::endl;
-  PrintCollection<std::list, long>({1, 2, 3, 4, 5});
+  PrintCollection(std::list<long>{1, 2, 3, 4, 5});
 }
 
 TEST(PrintCollectionTest, PrintingUnsignedForwardListContainer) {
   std::cout << "---multiset<unsigned>---" << std::endl;
-  PrintCollection<std::multiset, unsigned>({1, 2, 3, 4, 5});
+  PrintCollection(std::multiset<unsigned>{1, 2, 3, 4, 5});
 }
 
 TEST(PrintCollectionTest, PrintingTeamContainer) {
   std::cout << "---team.value => vector<string>---" << std::endl;
   Team<std::string> team{"Jim", "Gianna", "Andrea"};
   team.Insert2("42", "7", "5.5");
-  PrintCollection<std::vector, std::string>(team.GetValues());
+  PrintCollection(team.GetValues());
 }
 
-TEST(PrintCollectionTest, DISABLED_PrintingFloatArrayContainer) {
+TEST(PrintCollectionTest, PrintingFloatArrayContainer) {
   std::cout << "---array<float>---" << std::endl;
-  // PrintCollection(arr);
-  // PrintCollection<std::array, float, 5>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
-  // PrintCollection<std::array, <float, 5>>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
-  // PrintCollection<float[5]>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
-  // PrintCollection<std::array<float, 5>>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
-  // PrintCollection<std::array<float, 5>, float>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f}); // doesn't work
-  // PrintCollection<std::array, float>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
-  // PrintCollection<std::array<float>, float>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
-  // PrintCollection<std::array<float, 5>, float>({1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
-  // std::array<float, 5> arr{1.0f, 2.0f, 3.0f, 4.0f, 5.0f};
-  // PrintCollection<std::array<float, 5>, float>(arr);  // doesn't work
+  PrintCollection(std::array<float, 5>{1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
 }
 
 }  // namespace
