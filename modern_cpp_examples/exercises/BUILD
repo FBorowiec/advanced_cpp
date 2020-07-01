@@ -45,3 +45,13 @@ cc_test(
     "@googletest//:gtest_main",
   ]
 )
+
+cc_test(
+  name = "exercise_6",
+  srcs = ["exercise_6.cpp"],
+  deps = [
+    "//modern_cpp_examples/map/utils:bucket",
+    "@googletest//:gtest",
+    "@googletest//:gtest_main",
+  ]
+)
