@@ -2,8 +2,8 @@
 #include <array>
 #include <cassert>
 #include <deque>
-#include <iostream>
 #include <forward_list>
+#include <iostream>
 #include <list>
 #include <map>
 #include <set>
@@ -28,8 +28,9 @@ void PrintCollection(const T& coll) {
     return;
   }
 
-  std::for_each(coll.begin(), std::next(coll.begin(), 2),
-                [](const auto& elem) { std::cout << " " << elem << std::endl; });
+  std::for_each(coll.begin(), std::next(coll.begin(), 2), [](const auto& elem) {
+    std::cout << " " << elem << std::endl;
+  });
 
   if (std::size(coll) >= 3) {
     if (std::size(coll) > 3) {

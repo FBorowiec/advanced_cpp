@@ -12,9 +12,9 @@
 #include <unordered_map>
 #include <vector>
 
-#include "utils/buckets.hpp"
 #include "print.hpp"
 #include "timer.hpp"
+#include "utils/buckets.hpp"
 
 /********************************************
  * generic helpers for main()

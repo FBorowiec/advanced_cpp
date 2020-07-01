@@ -13,7 +13,7 @@
 
 #include "modern_cpp_examples/map/utils/buckets.hpp"
 
-namespace exercise_5 {
+namespace exercise_6 {
 
 template <typename T>
 void PrintCollection(const T& coll) {
@@ -78,14 +78,14 @@ class Team {
   std::vector<T> values_;
 };
 
-}  // namespace exercise_5
+}  // namespace exercise_6
 
 // TEST---------------------------------------------------------------------------------------------------------------|
 #include "gtest/gtest.h"
 
 namespace {
 
-using namespace exercise_5;
+using namespace exercise_6;
 
 TEST(PrintCollectionTest, PrintingIntVectorContainer) {
   std::cout << "---vector<int>---" << std::endl;

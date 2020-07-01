@@ -1,12 +1,18 @@
+#include <algorithm>
+#include <array>
 #include <cassert>
+#include <deque>
 #include <iostream>
+#include <list>
+#include <map>
+#include <numeric>
+#include <set>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
-#include "modern_cpp_examples/map/utils/buckets.hpp"
-
-namespace exercise_5 {
+namespace exercise_7 {
 
 template <typename T>
 class Team {
@@ -45,51 +51,53 @@ class Team {
     return os;
   }
 
-  std::vector<T> GetValues() { return values_; }
+  const std::vector<T>& GetValues() const { return values_; }
 
  private:
   std::vector<std::string> names_;
   std::vector<T> values_;
 };
 
-}  // namespace exercise_5
+int countMoreThan(const std::unordered_map<std::string, Team<double>>& teams,
+                  int max) {
+  return std::count_if(teams.begin(), teams.end(), [max](const auto& team) {
+    return std::accumulate(team.second.GetValues().begin(),
+                           team.second.GetValues().end(), 0.0) > max;
+  });
+}
+
+void PrintAllTeams(const std::unordered_map<std::string, Team<double>>& teams) {
+  std::cout << "All teams: \n";
+  for (const auto& team : teams) {
+    std::cout << " " << team.first << ": " << team.second << std::endl;
+  }
+}
+
+}  // namespace exercise_7
 
 // TEST---------------------------------------------------------------------------------------------------------------|
 #include "gtest/gtest.h"
 
 namespace {
 
-using namespace exercise_5;
+using namespace exercise_7;
 
-TEST(TeamTest, TestAssociativeContainer) {
+TEST(CountMoreThan, Test1) {
   Team<double> team1{"Jim", "Gianna", "Andrea"};
-  team1.Insert2(42, 7, 5.5);
+  team1.Insert2(142, 17, 5.5);
   Team<double> team2{"John", "Jim", "Jack"};
-  team2.Insert2(5, 7, 6);
+  team2.Insert2(15, 7, 6);
   Team<double> team3{"Marc", "Andy", "Dean"};
-  team3.Insert2(1, 2, 3);
+  team3.Insert2(1, 2, 103);
 
-  std::unordered_map<std::string, Team<double>> teams{{"Team 1", team1},
-                                                      {"Team 2", team2}};
+  std::unordered_map<std::string, Team<double>> teams{
+      {"Team 1", team1}, {"Team 2", team2}, {"Team 3", team3}};
 
-  // array should never be so small that it's factor of 10 of elements - wasting
-  // a lot of memory
-  teams.max_load_factor(0.7f);
+  PrintAllTeams(teams);
 
-  teams.insert({"Team 3", team3});
-
-  for (int i{0}; i < 1000; ++i) {
-    Team<double> t{"Unknown"};
-    t.Insert2(i, i * 100, i * 1000, -i);
-    teams.insert({"Team " + std::to_string(i), t});
-  }
-
-  std::cout << "All teams: \n";
-  for (const auto& team : teams) {
-    std::cout << " " << team.first << ": " << team.second << std::endl;
-  }
-
-  printHashTableState(teams);
+  std::cout << countMoreThan(teams, 100)
+            << " teams have sum of values more than 100\n";
+  // printHashTableState(teams);
 }
 
 }  // namespace
