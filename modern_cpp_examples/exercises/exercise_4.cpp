@@ -3,6 +3,7 @@
 #include <cassert>
 #include <deque>
 #include <iostream>
+#include <forward_list>
 #include <list>
 #include <map>
 #include <set>
@@ -17,12 +18,12 @@ template <typename T>
 void PrintCollection(const T& coll) {
   std::cout << "Coll: " << std::endl;
 
-  if (coll.size() == 0) {
+  if (std::size(coll) == 0) {
     std::cout << " empty" << std::endl;
     return;
   }
 
-  if (coll.size() == 1) {
+  if (std::size(coll) == 1) {
     std::cout << " " << *(std::prev(coll.end(), 1)) << std::endl;
     return;
   }
@@ -30,11 +31,11 @@ void PrintCollection(const T& coll) {
   std::for_each(coll.begin(), std::next(coll.begin(), 2),
                 [&](auto& elem) { std::cout << " " << elem << std::endl; });
 
-  if (coll.size() >= 3) {
-    if (coll.size() > 3) {
+  if (std::size(coll) >= 3) {
+    if (std::size(coll) > 3) {
       std::cout << " ..." << std::endl;
     }
-    std::cout << " " << *(std::next(coll.begin(), coll.size() - 1))
+    std::cout << " " << *(std::next(coll.begin(), std::size(coll) - 1))
               << std::endl;
   }
 }
@@ -146,7 +147,7 @@ TEST(PrintCollectionTest, PrintingLongListContainer) {
   PrintCollection(std::list<long>{1, 2, 3, 4, 5});
 }
 
-TEST(PrintCollectionTest, PrintingUnsignedForwardListContainer) {
+TEST(PrintCollectionTest, PrintingUnsignedMultisetContainer) {
   std::cout << "---multiset<unsigned>---" << std::endl;
   PrintCollection(std::multiset<unsigned>{1, 2, 3, 4, 5});
 }
