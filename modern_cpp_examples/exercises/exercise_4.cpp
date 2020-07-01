@@ -29,7 +29,7 @@ void PrintCollection(const T& coll) {
   }
 
   std::for_each(coll.begin(), std::next(coll.begin(), 2),
-                [&](auto& elem) { std::cout << " " << elem << std::endl; });
+                [](const auto& elem) { std::cout << " " << elem << std::endl; });
 
   if (std::size(coll) >= 3) {
     if (std::size(coll) > 3) {
