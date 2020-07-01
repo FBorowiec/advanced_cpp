@@ -1,5 +1,16 @@
 load("@rules_cc//cc:defs.bzl",  "cc_test")
 
+
+cc_test(
+  name = "all",
+  srcs = glob(["exercise_*.cpp"]),
+  deps = [
+    "//modern_cpp_examples/map/utils:bucket",
+    "@googletest//:gtest",
+    "@googletest//:gtest_main",
+  ]
+)
+
 cc_test(
   name = "exercise_1",
   srcs = ["exercise_1.cpp"],
