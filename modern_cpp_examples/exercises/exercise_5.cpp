@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "modern_cpp_examples/map/buckets.hpp"
+#include "modern_cpp_examples/map/utils/buckets.hpp"
 
 namespace exercise_5 {
 
@@ -71,12 +71,24 @@ TEST(TeamTest, TestAssociativeContainer) {
 
   std::unordered_map<std::string, Team<double>> teams{{"Team 1", team1},
                                                       {"Team 2", team2}};
+
+  // array should never be so small that it's factor of 10 of elements - wasting a lot of memory
+  teams.max_load_factor(0.7f);
+
   teams.insert({"Team 3", team3});
+
+  for (int i{0}; i<1000; ++i) {
+    Team<double> t{"Unknown"};
+    t.Insert2(i, i*100, i*1000, -i);
+    teams.insert({"Team " + std::to_string(i), t});
+  }
 
   std::cout << "All teams: \n";
   for (const auto& team : teams) {
     std::cout << " " << team.first << ": " << team.second << std::endl;
   }
+
+  printHashTableState(teams);
 }
 
 }  // namespace

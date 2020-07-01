@@ -40,7 +40,7 @@ cc_test(
   name = "exercise_5",
   srcs = ["exercise_5.cpp"],
   deps = [
-    "//modern_cpp_examples/map:bucket",
+    "//modern_cpp_examples/map/utils:bucket",
     "@googletest//:gtest",
     "@googletest//:gtest_main",
   ]

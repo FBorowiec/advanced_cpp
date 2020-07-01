@@ -1,0 +1,1 @@
+sharedptrloop: runtime core dump (what to pass as args?)

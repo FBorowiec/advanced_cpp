@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "buckets.hpp"
+#include "utils/buckets.hpp"
 #include "print.hpp"
 #include "timer.hpp"
 

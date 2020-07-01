@@ -2,7 +2,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "buckets.hpp"
+#include "modern_cpp_examples/map/utils/buckets.hpp"
 
 namespace map {
 
