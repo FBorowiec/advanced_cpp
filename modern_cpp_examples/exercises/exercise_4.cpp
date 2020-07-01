@@ -17,12 +17,12 @@ template <typename T>
 void PrintCollection(const T& coll) {
   std::cout << "Coll: " << std::endl;
 
-  if (coll.size()  == 0) {
+  if (coll.size() == 0) {
     std::cout << " empty" << std::endl;
     return;
   }
 
-  if (coll.size()  == 1) {
+  if (coll.size() == 1) {
     std::cout << " " << *(std::prev(coll.end(), 1)) << std::endl;
     return;
   }
@@ -137,7 +137,8 @@ TEST(PrintCollectionTest, PrintingCharDequeContainer) {
 
 TEST(PrintCollectionTest, PrintingStringInitializerListContainer) {
   std::cout << "---initializer_list<string>---" << std::endl;
-  PrintCollection(std::initializer_list<std::string>{"abc", "def", "ghi", "jkl", "mno"});
+  PrintCollection(
+      std::initializer_list<std::string>{"abc", "def", "ghi", "jkl", "mno"});
 }
 
 TEST(PrintCollectionTest, PrintingLongListContainer) {
@@ -159,7 +160,8 @@ TEST(PrintCollectionTest, PrintingTeamContainer) {
 
 TEST(PrintCollectionTest, PrintingFloatArrayContainer) {
   std::cout << "---array<float>---" << std::endl;
-  PrintCollection(std::array<float, 5>{1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
+  PrintCollection(
+      std::array<float, 5>{1.0f, 2.0f, 3.0f, 4.0f, 5.0f});  // doesn't work
 }
 
 }  // namespace

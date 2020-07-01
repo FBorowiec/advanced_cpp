@@ -5,6 +5,12 @@ cc_library(
   hdrs = glob(["*.hpp"]),
 )
 
+cc_library(
+  name = "bucket",
+  hdrs = ["buckets.hpp"],
+  visibility = ["//visibility:public",],
+)
+
 cc_test(
   name = "map_test",
   srcs = ["map.cpp"],
