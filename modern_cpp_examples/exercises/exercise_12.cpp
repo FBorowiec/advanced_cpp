@@ -66,8 +66,14 @@ Team<double> CreateTeamDouble() {
 template <typename Cont, typename TeamT>
 void InsertTwice(Cont& cont, TeamT&& team) {
   cont.push_back(team);  // copy
-  // NO! cont.push_back(std::forward<TeamT>(team));  // move ALWAYS
   cont.push_back(std::forward<TeamT>(team));  // move only if passed with move
+}
+
+template <typename Cont, typename TeamT, typename... TeamTargs>
+void InsertTwice(Cont& cont, TeamT first, TeamTargs&&... teams) {
+  cont.push_back(first);
+  cont.push_back(std::forward<TeamT>(first));
+  InsertTwice(cont, teams...);
 }
 
 }  // namespace exercise_12
@@ -79,6 +85,25 @@ namespace {
 
 using namespace exercise_12;
 
+TEST(CreateTeamTest, InsertTwiceTest) {
+  std::vector<Team<double>> coll;
+
+  // allow to insert an artibrary number of teams with an without move sematics
+  Team<double> teamA{"Team A"};
+  Team<double> teamB{"Team B"};
+  Team<double> teamC{"Team C"};
+  Team<double> teamX{"Some name for 2 teams..."};
+
+  InsertTwice(coll, std::move(teamX));
+
+  InsertTwice(coll, teamA, teamB, std::move(teamC));
+
+  for (const auto& el : coll) {
+    std::cout << el << "\n";
+  }
+  std::cout << "\n";
+}
+
 TEST(CreateTeamTest, MoveTeam) {
   std::vector<Team<double>> coll;
   coll.reserve(
@@ -88,9 +113,20 @@ TEST(CreateTeamTest, MoveTeam) {
   }
   coll[4].Insert2(42);
 
+  // allow to insert an artibrary number of teams with an without move sematics
+  Team<double> teamA{"Team A"};
+  Team<double> teamB{"Team B"};
+  Team<double> teamC{"Team C"};
   Team<double> teamX{"Some name for 2 teams..."};
 
   InsertTwice(coll, std::move(teamX));
+
+  InsertTwice(coll, teamA, teamB, std::move(teamC));
+
+  for (const auto& el : coll) {
+    std::cout << el << "\n";
+  }
+  std::cout << "\n";
 }
 
 }  // namespace
