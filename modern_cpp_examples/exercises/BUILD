@@ -103,3 +103,12 @@ cc_test(
     "@googletest//:gtest_main",
   ]
 )
+
+cc_test(
+  name = "exercise_11",
+  srcs = ["exercise_11.cpp"],
+  deps = [
+    "@googletest//:gtest",
+    "@googletest//:gtest_main",
+  ]
+)

@@ -16,6 +16,11 @@ class Team {
     assert(names.size() > 1 || (names.size() == 1 && !names.begin()->empty()));
   }
   Team() = delete;
+
+  /**
+   * All of the copy/move constructors/assignments are created for you!
+   */
+
   Team(const Team& other)
       : names_(other.names_), values_(other.values_) {  // cpy cntr
     std::cout << "Copy: " << *this << std::endl;
