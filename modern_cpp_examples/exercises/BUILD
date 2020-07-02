@@ -80,6 +80,25 @@ cc_test(
   name = "exercise_8",
   srcs = ["exercise_8.cpp"],
   deps = [
+    "//modern_cpp_examples/map/utils:bucket",
+    "@googletest//:gtest",
+    "@googletest//:gtest_main",
+  ]
+)
+
+cc_test(
+  name = "exercise_9",
+  srcs = ["exercise_9.cpp"],
+  deps = [
+    "@googletest//:gtest",
+    "@googletest//:gtest_main",
+  ]
+)
+
+cc_test(
+  name = "exercise_10",
+  srcs = ["exercise_10.cpp"],
+  deps = [
     "@googletest//:gtest",
     "@googletest//:gtest_main",
   ]
