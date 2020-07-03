@@ -1,8 +1,8 @@
 #include <algorithm>
 #include <cassert>
 #include <chrono>
-#include <iostream>
 #include <future>
+#include <iostream>
 #include <map>
 #include <numeric>
 #include <string>
@@ -10,7 +10,7 @@
 #include <utility>
 #include <vector>
 
-namespace exercise_12 {
+namespace exercise_13 {
 
 template <typename T>
 void PrintCollection(const T& coll) {
@@ -105,14 +105,14 @@ void InsertTwice(Cont& cont, TeamT first, TeamTargs&&... teams) {
   InsertTwice(cont, teams...);
 }
 
-}  // namespace exercise_12
+}  // namespace exercise_13
 
 // TEST---------------------------------------------------------------------------------------------------------------|
 #include "gtest/gtest.h"
 
 namespace {
 
-using namespace exercise_12;
+using namespace exercise_13;
 
 TEST(CreateTeamTest, InsertTwiceTest) {
   std::vector<Team<double>> coll;
@@ -153,14 +153,17 @@ TEST(CreateTeamTest, MoveTeam) {
   InsertTwice(coll, teamA, teamB, std::move(teamC));
 
   // Print collection in parallel
-  std::future<void> print = std::async(std::launch::async, PrintCollection<decltype(coll)>, std::cref(coll));
+  std::future<void> print = std::async(
+      std::launch::async, PrintCollection<decltype(coll)>, std::cref(coll));
 
   // sum with two lambdas
   auto sum_values1 = std::async(std::launch::async, [&coll] {
-    return std::accumulate(coll.begin(), coll.end(), 0.0, [] (double current_sum, const auto& team) {
-      auto values = team.GetValues();
-      return std::accumulate(values.begin(), values.end(), current_sum);
-    });
+    return std::accumulate(coll.begin(), coll.end(), 0.0,
+                           [](double current_sum, const auto& team) {
+                             auto values = team.GetValues();
+                             return std::accumulate(values.begin(),
+                                                    values.end(), current_sum);
+                           });
   });
 
   // sum with two for loops
