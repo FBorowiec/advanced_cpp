@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <iostream>
 #include <map>
 #include <numeric>
@@ -65,7 +66,7 @@ Team<double> CreateTeamDouble() {
 
 template <typename Cont, typename TeamT>
 void InsertTwice(Cont& cont, TeamT&& team) {
-  cont.push_back(team);  // copy
+  cont.push_back(team);                       // copy
   cont.push_back(std::forward<TeamT>(team));  // move only if passed with move
 }
 
@@ -119,6 +120,7 @@ TEST(CreateTeamTest, MoveTeam) {
   Team<double> teamC{"Team C"};
   Team<double> teamX{"Some name for 2 teams..."};
 
+  auto start = std::chrono::steady_clock::now();
   InsertTwice(coll, std::move(teamX));
 
   InsertTwice(coll, teamA, teamB, std::move(teamC));
@@ -127,6 +129,10 @@ TEST(CreateTeamTest, MoveTeam) {
     std::cout << el << "\n";
   }
   std::cout << "\n";
+  std::chrono::duration<double, std::milli> duration =
+      std::chrono::steady_clock::now() - start;
+  std::cout << "Inserting and printing the function took: " << duration.count()
+            << "ms" << std::endl;
 }
 
 }  // namespace
