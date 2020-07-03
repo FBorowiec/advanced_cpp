@@ -121,3 +121,12 @@ cc_test(
     "@googletest//:gtest_main",
   ]
 )
+
+cc_test(
+  name = "exercise_13",
+  srcs = ["exercise_13.cpp"],
+  deps = [
+    "@googletest//:gtest",
+    "@googletest//:gtest_main",
+  ]
+)
