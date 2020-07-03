@@ -7,7 +7,7 @@ _Run examples with:_
 _(basic)_
 ```
 bazel run //modern_cpp_examples/basic_examples:exercise_[1...]
-bazel run //modern_cpp_examples/specexe:specexe
+bazel run //modern_cpp_examples/basic_examples/specexe:specexe
 bazel run //modern_cpp_examples/map/customer:customer_test
 bazel run //modern_cpp_examples/map:map_test
 ```
