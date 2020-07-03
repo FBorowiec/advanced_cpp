@@ -92,7 +92,7 @@ void loopPassingSharedPtrByRawPtr(int numThreads, size_t threadNo,
 // main
 //------------------------------------------------------------------------------
 
-int main(int argc, char* argv[]) {
+int main(int argc, const char** argv) {
   if (argc < 3 ||
       (argc == 3 && *argv[2] != 'v' && *argv[2] != 'r' && *argv[2] != 'p')) {
     std::cout << "Usage: " << argv[0]
@@ -195,9 +195,31 @@ namespace {
 
 using namespace sharedptrloop;
 
-int my_argc;
-char** my_argv;
+TEST(SharedPtrLoopTest, OneThreadByReference) {
+  const char* num_of_threads = "12";
+  const char* by_reference = "r";
 
-TEST(Test, Test1) { main(my_argc, my_argv); }
+  const char* my_argv[] = {"main", num_of_threads, by_reference, NULL};
+  int my_argc = std::size(my_argv) - 1;
+  main(my_argc, my_argv);
+}
+
+TEST(SharedPtrLoopTest, TenThreadsByValue) {
+  const char* num_of_threads = "12";
+  const char* by_reference = "v";
+
+  const char* my_argv[] = {"main", num_of_threads, by_reference, NULL};
+  int my_argc = std::size(my_argv) - 1;
+  main(my_argc, my_argv);
+}
+
+TEST(SharedPtrLoopTest, OneThreadsByRaw) {
+  const char* num_of_threads = "12";
+  const char* by_reference = "p";
+
+  const char* my_argv[] = {"main", num_of_threads, by_reference, NULL};
+  int my_argc = std::size(my_argv) - 1;
+  main(my_argc, my_argv);
+}
 
 }  // namespace

@@ -62,7 +62,7 @@ int accurateComputation(int num, char c) {
   return 49768;
 }
 
-int main(int argc, char** argv) {
+int main(int argc, const char** argv) {
   // command line argumment defines amount of loops/seconds
   // in accurate computation
   int num = argc > 1 ? atoi(argv[1]) : 30;
@@ -94,9 +94,12 @@ namespace {
 
 using namespace specexe;
 
-int my_argc;
-char** my_argv;
+TEST(SpecexeTest, FiveLoopsTest) {
+  const char* num_of_loops = "5";
+  const char* my_argv[] = {"main", num_of_loops, NULL};
 
-TEST(Test, Test1) { main(my_argc, my_argv); }
+  int my_argc = std::size(my_argv) - 1;
+  main(my_argc, my_argv);
+}
 
 }  // namespace

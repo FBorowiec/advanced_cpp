@@ -12,9 +12,9 @@
 #include <unordered_map>
 #include <vector>
 
+#include "modern_cpp_examples/map/utils/buckets.hpp"
 #include "print.hpp"
 #include "timer.hpp"
-#include "utils/buckets.hpp"
 
 /********************************************
  * generic helpers for main()
@@ -239,9 +239,12 @@ namespace {
 
 using namespace customer;
 
-int my_argc;
-const char** my_argv;
+TEST(Test, Test1) {
+  const char* num_of_customers = "2000";
+  const char* my_argv[] = {"main", num_of_customers, NULL};
 
-TEST(Test, Test1) { main(my_argc, my_argv); }
+  int my_argc = std::size(my_argv) - 1;
+  main(my_argc, my_argv);
+}
 
 }  // namespace

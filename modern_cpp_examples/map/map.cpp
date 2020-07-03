@@ -64,6 +64,6 @@ namespace {
 
 using namespace map;
 
-TEST(Test, Test1) { main(); }
+TEST(MapTest, CreatingMapPrintingAndFindingTest) { main(); }
 
 }  // namespace

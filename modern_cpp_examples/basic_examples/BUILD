@@ -1,7 +1,7 @@
 load("@rules_cc//cc:defs.bzl",  "cc_test")
 
 cc_test(
-  name = "ex1",
+  name = "exercise_1",
   srcs = ["ex1.cpp"],
   deps = [
     "@googletest//:gtest",
@@ -10,7 +10,7 @@ cc_test(
 )
 
 cc_test(
-  name = "ex2",
+  name = "exercise_2",
   srcs = ["ex2.cpp"],
   deps = [
     "@googletest//:gtest",
@@ -19,7 +19,7 @@ cc_test(
 )
 
 cc_test(
-  name = "ex3",
+  name = "exercise_3",
   srcs = ["ex3.cpp"],
   deps = [
     "@googletest//:gtest",
@@ -28,7 +28,7 @@ cc_test(
 )
 
 cc_test(
-  name = "ex4",
+  name = "exercise_4",
   srcs = ["ex4.cpp"],
   deps = [
     "@googletest//:gtest",
