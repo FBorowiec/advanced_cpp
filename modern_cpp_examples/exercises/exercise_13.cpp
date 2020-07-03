@@ -153,10 +153,29 @@ TEST(CreateTeamTest, MoveTeam) {
   InsertTwice(coll, teamA, teamB, std::move(teamC));
 
   // Print collection in parallel
-  std::future<void> print1 = std::async(std::launch::async, PrintCollection<decltype(coll)>, std::cref(coll));
-  std::future<void> print2 = std::async(std::launch::async, PrintCollection<decltype(coll)>, std::cref(coll));
-  print1.get();
-  print2.get();
+  std::future<void> print = std::async(std::launch::async, PrintCollection<decltype(coll)>, std::cref(coll));
+
+  // sum with two lambdas
+  auto sum_values1 = std::async(std::launch::async, [&coll] {
+    return std::accumulate(coll.begin(), coll.end(), 0.0, [] (double current_sum, const auto& team) {
+      auto values = team.GetValues();
+      return std::accumulate(values.begin(), values.end(), current_sum);
+    });
+  });
+
+  // sum with two for loops
+  std::future<double> sum_values2 = std::async(std::launch::async, [&coll] {
+    double total_sum{0};
+    for (const auto& team : coll) {
+      for (const auto& value : team.GetValues()) {
+        total_sum += value;
+      }
+    }
+    return total_sum;
+  });
+  print.get();
+  std::cout << "Total sum: " << sum_values1.get() << std::endl;
+  std::cout << "Total sum: " << sum_values2.get() << std::endl;
 }
 
 }  // namespace
