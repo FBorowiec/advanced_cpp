@@ -1,18 +1,39 @@
 # Modern C++ features
 
-Contains example of modern c++ usage.
+Contains example of modern *C++* usage.
 
-_Run examples with:_
+## How to run the code locally with *Bazel* already installed on host
 
-_(basic)_
+*Basic examples:*
+
+```bash
+bazel test //modern_cpp_examples/basic_examples/...
+bazel test //modern_cpp_examples/map/...
 ```
-bazel run //modern_cpp_examples/basic_examples:exercise_[1...]
-bazel run //modern_cpp_examples/basic_examples/specexe:specexe
-bazel run //modern_cpp_examples/map/customer:customer_test
-bazel run //modern_cpp_examples/map:map_test
+
+*Advanced examples:*
+
+```bash
+bazel test //modern_cpp_examples/...
 ```
-_(advanced)_
+
+## Run the code inside a container
+
+You can use the following Docker image to instantiate a container locally with Ubuntu and Bazel already installed:
+
+```bash
+docker run -it --rm framaxwlad/ubuntu_dev:latest
 ```
-bazel run //modern_cpp_examples/advanced_examples:exercise_[1...]
-bazel run //modern_cpp_examples/sharedptrloop:sharedptrloop
+
+There you can simply clone the repository:
+
+```bash
+git clone https://github.com/FBorowiec/advanced_cpp.git
+cd advanced_cpp/
+```
+
+And use the aforementioned commands to run the program:
+
+```bash
+bazel test //modern_cpp_examples/advanced_examples/...
 ```
