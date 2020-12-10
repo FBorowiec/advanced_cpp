@@ -4,6 +4,12 @@ Contains example of modern *C++* usage.
 
 ## How to run the code locally with *Bazel* already installed on host
 
+### Bazel installation
+
+[Install Bazel](https://docs.bazel.build/versions/master/install.html)
+
+Once you have successfully installed *Bazel* you can run the code using:
+
 *Basic examples:*
 
 ```bash
@@ -19,7 +25,7 @@ bazel test //modern_cpp_examples/advanced_examples/...
 
 ## Run the code inside a container
 
-You can use the following Docker image to instantiate a container locally with Ubuntu and Bazel already installed:
+You can use my following Docker image to instantiate a container locally with Ubuntu and Bazel already installed:
 
 ```bash
 docker run -it --rm framaxwlad/ubuntu_dev:latest
